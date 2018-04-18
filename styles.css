@@ -71,3 +71,46 @@ html {
   font-size: 10px;
   margin-top: .5rem;
 }
+
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.25);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.modal {
+  background-color: white;
+  border-radius: .5rem;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  position: absolute;
+  z-index: 2;
+  padding: 3rem;
+  width: 200px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal > button, button:focus {
+  background-color: lightblue;
+  border: 0;
+  border-radius: .5rem;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1rem;
+  padding: .5rem;
+  text-transform: uppercase;
+  outline: 0;
+}
+
+.modal > button:hover {
+  background-color: #89bbcb;
+}
