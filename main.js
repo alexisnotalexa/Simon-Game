@@ -19,4 +19,8 @@ $(document).ready(function() {
       $('#score').text('00');
     }
   });
+  // need to work on this
+  $('.section').on('click', function() {
+    $(this).addClass('animate');
+  });
 });

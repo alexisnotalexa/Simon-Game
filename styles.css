@@ -46,28 +46,46 @@ html {
 }
 
 #green {
-  background-color: #2ecc71;
+  background: #2ecc71;
   border-top-left-radius: 100%;
 }
 
 #red {
-  background-color: lightcoral;
+  background: lightcoral;
   border-top-right-radius: 100%;
 }
 
 #yellow {
-  background-color: gold;
+  background: gold;
   border-bottom-left-radius: 100%;
 }
 
 #blue {
-  background-color: lightskyblue;
+  background: lightskyblue;
   border-bottom-right-radius: 100%;
 }
+
+#green:active { background: #17bd5d; }
+#red:active { background: #e26464; }
+#yellow:active { background: #ffbf00; }
+#blue:active { background: #69b8e8; }
 
 #score {
   color: lightgray;
   font-size: 3rem;
+}
+
+.section {
+}
+
+.animate {
+  animation: .5s animate;
+}
+
+@keyframes animate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 /* --- CONTROLS --- */
