@@ -10,10 +10,13 @@ $(document).ready(function() {
   $('.switch').on('click', function() {
     if($('.switch').hasClass('move-switch-right')) {
       $('.switch').removeClass('move-switch-right').addClass('move-switch-left');
+      $('#score').text('--');
     } else if($('.switch').hasClass('move-switch-left')) {
       $('.switch').removeClass('move-switch-left').addClass('move-switch-right');
+      $('#score').text('00');
     } else {
       $('.switch').addClass('move-switch-right');
+      $('#score').text('00');
     }
   });
 });

@@ -65,16 +65,9 @@ html {
   border-bottom-right-radius: 100%;
 }
 
-.score {
-  background: #bec1bb;
-  border: 2px solid #808080;
-  padding: .5rem 1rem;
-  border-radius: 30%;
-}
-
-.score > span {
-  font-size: 1.5rem;
-  color: #505050;
+#score {
+  color: lightgray;
+  font-size: 3rem;
 }
 
 /* --- CONTROLS --- */
