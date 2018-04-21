@@ -25,8 +25,8 @@ html {
   background: white;
   border-radius: 50%;
   position: absolute;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -40,14 +40,13 @@ html {
 .game {
   display: grid;
   grid-template: repeat(2, 1fr) / repeat(2, 1fr);
-  grid-gap: .5rem;
   margin: 1.5rem;
-  width: 450px;
-  height: 450px;
+  width: 400px;
+  height: 400px;
 }
 
 #green {
-  background-color: #11D3BC;
+  background-color: #2ecc71;
   border-top-left-radius: 100%;
 }
 
@@ -66,12 +65,46 @@ html {
   border-bottom-right-radius: 100%;
 }
 
+.score {
+  background: #bec1bb;
+  border: 2px solid #808080;
+  padding: .5rem 1rem;
+  border-radius: 30%;
+}
+
+.score > span {
+  font-size: 1.5rem;
+  color: #505050;
+}
+
+/* --- CONTROLS --- */
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  width: 300px;
+}
+
+.controls__group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls__group > span {
+  font-size: 10px;
+  margin-top: .5rem;
+}
+
+/* --- CONTROL BUTTONS --- */
 .btn, .btn:focus {
   position: relative;
   border: 0;
   border-radius: 50%;
   width: 20px;
   height: 20px;
+  margin-bottom: 6px;
   outline: 0;
 }
 
@@ -89,31 +122,64 @@ html {
   width: 10px;
 }
 
+.switch-container {
+  background: #f1f1f1;
+  border-radius: 1rem;
+  height: 20px;
+  width: 50px;
+  padding: 3px;
+}
+
+.switch {
+  background: lightgray;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+.move-switch-right {
+  animation: .5s moveRight forwards;
+  transition: all .2s ease-in;
+}
+
+.move-switch-left {
+  animation: .5s moveLeft;
+  transition: all .2s ease-in;
+}
+
+/* SWITCH ANIMATIONS */
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+    background: lightgray;
+  }
+  100% {
+    transform: translateX(150%);
+    background: #2ecc71;
+  }
+}
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(150%);
+    background: #2ecc71;
+  }
+  100% {
+    transform: translateX(0%);
+    background: lightgray;
+  }
+}
+
+/* CONTROL BUTTONS - COLORS */
 .red { background: linear-gradient(lightcoral, #ff5050); }
 .red:hover { background: #de4646; }
-.red--active { box-shadow: 0 0 1rem lightcoral; }
+.red--active { box-shadow: 0 0 1rem red; }
 
 .yellow { background: linear-gradient(#ffd700, #f7c500); }
 .yellow:hover { background: #e1a900; }
-.yellow--active { box-shadow: 0 0 1rem gold; }
+.yellow--active { box-shadow: 0 0 1rem #ff9400; }
 
-.controls {
-  display: flex;
-  justify-content: space-around;
-  width: 100px;
-}
-
-.controls__group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.controls__group > span {
-  font-size: 10px;
-  margin-top: .5rem;
-}
-
+/* --- MODAL (WINNING SCREEN) --- */
 .modal-backdrop {
   display: none;
   background-color: rgba(0,0,0,0.25);
