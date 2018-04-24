@@ -31,8 +31,14 @@ const simonGame = (function() {
     }
   }
 
+  function toggleStrict(strict) {
+    game.strictMode = strict ? true : false;
+    console.log(game);
+  }
+
   return {
-    togglePower: togglePower
+    togglePower: togglePower,
+    toggleStrict: toggleStrict
   };
 })();
 
@@ -51,9 +57,16 @@ $(document).ready(function() {
       $('#score').text('00');
     }
   });
+
   // STRICT BUTTON
   $('.yellow').on('click', function() {
-    $('.yellow').toggleClass('yellow--active');
+    if($('.yellow').hasClass('yellow--active')) {
+      simonGame.toggleStrict(false);
+      $('.yellow').removeClass('yellow--active');
+    } else {
+      simonGame.toggleStrict(true);
+      $('.yellow').addClass('yellow--active');
+    }
   });
   // START BUTTON
   $('.red').on('click', function() {
