@@ -1,26 +1,62 @@
+const simonGame = (function() {
+  const MAXROUND = 20;
+  const game = {
+    start: false,
+    strictMode: false,
+    power: false,
+    sequence: [],
+    round: 0
+  };
+
+  function init() {
+    if(game.power) {
+      game.start = true;
+      console.log(game);
+    }
+  }
+
+  function reset() {
+    game.sequence = [];
+    game.round = 0;
+  }
+
+  function togglePower(power) {
+    if(power) {
+      game.power = true;
+    } else {
+      game.strictMode = false;
+      game.start = false;
+      game.power = false;
+      reset();
+    }
+  }
+
+  return {
+    togglePower: togglePower
+  };
+})();
+
 $(document).ready(function() {
-  $('.yellow').on('click', function() {
-    $('.yellow').toggleClass('yellow--active');
-  });
-
-  $('.red').on('click', function() {
-    $('.red').toggleClass('red--active');
-  });
-
+  // POWER BUTTON
   $('.switch').on('click', function() {
     if($('.switch').hasClass('move-switch-right')) {
+      simonGame.togglePower(false); // turn off
       $('.switch').removeClass('move-switch-right').addClass('move-switch-left');
+      $('.red, .yellow').removeClass('red--active yellow--active').prop('disabled', true);
       $('#score').text('--');
-    } else if($('.switch').hasClass('move-switch-left')) {
-      $('.switch').removeClass('move-switch-left').addClass('move-switch-right');
-      $('#score').text('00');
     } else {
-      $('.switch').addClass('move-switch-right');
+      simonGame.togglePower(true); // turn on
+      $('.switch').removeClass('move-switch-left').addClass('move-switch-right');
+      $('.red, .yellow').prop('disabled', false);
       $('#score').text('00');
     }
   });
-  // need to work on this
-  $('.section').on('click', function() {
-    $(this).addClass('animate');
+  // STRICT BUTTON
+  $('.yellow').on('click', function() {
+    $('.yellow').toggleClass('yellow--active');
+  });
+  // START BUTTON
+  $('.red').on('click', function() {
+    $('.red').toggleClass('red--active');
   });
 });
