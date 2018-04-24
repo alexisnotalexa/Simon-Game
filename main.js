@@ -1,5 +1,5 @@
 const simonGame = (function() {
-  const MAXROUND = 20;
+  const MAXROUND = 20, GAMESPEED = 1000;
   const sound = {
     blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
     red: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
@@ -18,6 +18,9 @@ const simonGame = (function() {
     game.start = true;
     reset();
     addStep();
+    addStep();
+    addStep();
+    playSequence();
   }
 
   function reset() {
@@ -31,7 +34,42 @@ const simonGame = (function() {
   }
 
   function playSequence() {
+    console.log(game.sequence);
+    let counter = 0;
+    let intervals = setInterval(function() {
+      if(counter === game.sequence.length) {
+        clearInterval(intervals);
+      } else {
+        $('.section').removeClass('animate');
+        playCurrent(game.sequence[counter]);
+        counter++;
+      }
+    }, GAMESPEED);
+  }
 
+  function playCurrent(color) {
+    switch(color) {
+      case 'blue':
+        sound.blue.load();
+        sound.blue.play();
+        $('#blue').removeClass('animate').addClass('animate');
+        break;
+      case 'red':
+        sound.red.load();
+        sound.red.play();
+        $('#red').removeClass('animate').addClass('animate');
+        break;
+      case 'yellow':
+        sound.yellow.load();
+        sound.yellow.play();
+        $('#yellow').removeClass('animate').addClass('animate');
+        break;
+      case 'green':
+        sound.green.load();
+        sound.green.play();
+        $('#green').removeClass('animate').addClass('animate');
+        break;
+    }
   }
 
   function togglePower(power) {
