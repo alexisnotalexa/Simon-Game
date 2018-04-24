@@ -20,6 +20,7 @@ const simonGame = (function() {
     addStep();
     addStep();
     addStep();
+    addStep();
     playSequence();
   }
 
@@ -40,7 +41,6 @@ const simonGame = (function() {
       if(counter === game.sequence.length) {
         clearInterval(intervals);
       } else {
-        $('.section').removeClass('animate');
         playCurrent(game.sequence[counter]);
         counter++;
       }
@@ -48,28 +48,69 @@ const simonGame = (function() {
   }
 
   function playCurrent(color) {
-    switch(color) {
-      case 'blue':
-        sound.blue.load();
-        sound.blue.play();
-        $('#blue').removeClass('animate').addClass('animate');
-        break;
-      case 'red':
-        sound.red.load();
-        sound.red.play();
-        $('#red').removeClass('animate').addClass('animate');
-        break;
-      case 'yellow':
-        sound.yellow.load();
-        sound.yellow.play();
-        $('#yellow').removeClass('animate').addClass('animate');
-        break;
-      case 'green':
-        sound.green.load();
-        sound.green.play();
-        $('#green').removeClass('animate').addClass('animate');
-        break;
-    }
+    $('.section').removeClass('animate');
+    setTimeout(function() {
+      switch(color) {
+        case 'blue':
+          sound.blue.load();
+          sound.blue.play();
+          $('#blue').addClass('animate');
+          break;
+        case 'red':
+          sound.red.load();
+          sound.red.play();
+          $('#red').addClass('animate');
+          break;
+        case 'yellow':
+          sound.yellow.load();
+          sound.yellow.play();
+          $('#yellow').addClass('animate');
+          break;
+        case 'green':
+          sound.green.load();
+          sound.green.play();
+          $('#green').addClass('animate');
+          break;
+      }
+    }, 100);
+    // switch(color) {
+    //   case 'blue':
+    //     sound.blue.load();
+    //     sound.blue.play();
+    //     $('#blue').removeClass('animate');
+    //     setTimeout(function() {
+    //       $('#blue').addClass('animate');
+    //     }, 100);
+    //     // $('#blue').removeClass('animate').addClass('animate');
+    //     break;
+    //   case 'red':
+    //     sound.red.load();
+    //     sound.red.play();
+    //     $('#red').removeClass('animate');
+    //     setTimeout(function() {
+    //       $('#red').addClass('animate');
+    //     }, 100);
+    //     // $('#red').removeClass('animate').addClass('animate');
+    //     break;
+    //   case 'yellow':
+    //     sound.yellow.load();
+    //     sound.yellow.play();
+    //     $('#yellow').removeClass('animate');
+    //     setTimeout(function() {
+    //       $('#yellow').addClass('animate');
+    //     }, 100);
+    //     // $('#yellow').removeClass('animate').addClass('animate');
+    //     break;
+    //   case 'green':
+    //     sound.green.load();
+    //     sound.green.play();
+    //     $('#green').removeClass('animate');
+    //     setTimeout(function() {
+    //       $('#green').addClass('animate');
+    //     }, 100);
+    //     // $('#green').removeClass('animate').addClass('animate');
+    //     break;
+    // }
   }
 
   function togglePower(power) {
