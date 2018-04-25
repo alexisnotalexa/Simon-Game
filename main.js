@@ -1,5 +1,4 @@
 /*
- *
  *     SIMON GAME
  * for freecodecamp.com
  * by Alexis Okamura - 2018
