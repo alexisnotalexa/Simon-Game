@@ -1,5 +1,5 @@
 const simonGame = (function() {
-  const MAXROUND = 20, GAMESPEED = 1000;
+  const MAXROUND = 5, GAMESPEED = 1000;
   const sound = {
     blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
     red: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
@@ -12,26 +12,33 @@ const simonGame = (function() {
     strictMode: false,
     power: false,
     sequence: [],
-    round: 0
+    round: 1
   };
 
   function init() {
     game.start = true;
     reset();
-    addStep();
-    addStep();
+    formatRound();
     addStep();
     playSequence();
   }
 
   function reset() {
     game.sequence = [];
-    game.round = 0;
+    game.round = 1;
   }
 
   function addStep() {
     const colors = ['blue', 'red', 'yellow', 'green'];
     game.sequence.push(colors[Math.floor(Math.random()*4)]);
+  }
+
+  function formatRound() {
+    if(game.round < 10) {
+      $('#score').text('0' + game.round);
+    } else {
+      $('#score').text(game.round);
+    }
   }
 
   function playersTurn() {
@@ -40,15 +47,30 @@ const simonGame = (function() {
     $('.section').removeClass('animate-section').addClass('active');
     $('.section').on('click', function() {
       let move = $(this).attr('id');
+      // ERROR CHECKING
       if(game.sequence[counter] !== move) {
-        playError();
-      }
-      counter++;
-      console.log(move);
-      console.log(counter);
-
-      if(counter === game.sequence.length) {
         $('.section').off();
+        playError();
+        if(game.strictMode) {
+          init();
+          counter = 0;
+        } else {
+          setTimeout(function() {
+            playSequence();
+          }, 100);
+          counter = 0;
+        }
+      } else {
+        counter++; // correct move
+      }
+
+      // GAME CHECKING
+      if(counter === MAXROUND) {
+        console.log('you win');
+      } else if(counter === game.sequence.length) {
+        $('.section').off();
+        game.round++;
+        formatRound();
         addStep();
         playSequence();
       }
@@ -178,7 +200,6 @@ $(document).ready(function() {
     } else {
       simonGame.toggleStart(true); // turn on
       $('.red').addClass('red--active');
-      $('#score').text('01');
     }
   });
 });
