@@ -29,6 +29,7 @@ const simonGame = (function() {
   }
 
   function addStep() {
+    console.log('addStep');
     const colors = ['blue', 'red', 'yellow', 'green'];
     game.sequence.push(colors[Math.floor(Math.random()*4)]);
   }
@@ -48,6 +49,9 @@ const simonGame = (function() {
       let move = $(this).attr('id');
       // ERROR CHECKING
       if(game.sequence[counter] !== move) {
+        console.log(counter);
+        console.log(move);
+        console.log(game.sequence);
         $('.section').off();
         playError();
         if(game.strictMode) {
@@ -67,6 +71,7 @@ const simonGame = (function() {
       // GAME CHECKING
       if(counter === MAXROUND) {
         $('.modal-backdrop').show();
+        counter = 0;
       } else if(counter === game.sequence.length) {
         $('.section').off();
         game.round++;
