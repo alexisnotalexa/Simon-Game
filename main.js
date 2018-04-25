@@ -42,7 +42,6 @@ const simonGame = (function() {
   }
 
   function playersTurn() {
-    console.log('playersTurn');
     let counter = 0;
     $('.section').removeClass('animate-section').addClass('active');
     $('.section').on('click', function() {
@@ -52,7 +51,9 @@ const simonGame = (function() {
         $('.section').off();
         playError();
         if(game.strictMode) {
-          init();
+          setTimeout(function() {
+            init();
+          }, 100);
           counter = 0;
         } else {
           setTimeout(function() {
@@ -63,7 +64,6 @@ const simonGame = (function() {
       } else {
         counter++; // correct move
       }
-
       // GAME CHECKING
       if(counter === MAXROUND) {
         $('.modal-backdrop').show();
@@ -78,7 +78,6 @@ const simonGame = (function() {
   }
 
   function playSequence() {
-    console.log(game.sequence);
     // player cannot make a move while sequence is playing
     $('.section').removeClass('active');
     let counter = 0;
@@ -203,6 +202,7 @@ $(document).ready(function() {
     }
   });
 
+  // RESTART BUTTON
   $('#restart').on('click', function() {
     $('.modal-backdrop').hide();
     simonGame.init();
