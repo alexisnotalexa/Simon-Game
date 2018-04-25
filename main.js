@@ -1,5 +1,13 @@
+/*
+ *
+ *     SIMON GAME
+ * for freecodecamp.com
+ * by Alexis Okamura - 2018
+ *
+ */
+
 const simonGame = (function() {
-  const MAXROUND = 3, GAMESPEED = 1000;
+  const MAXROUND = 20, GAMESPEED = 1000;
   const sound = {
     blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
     red: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
@@ -28,31 +36,31 @@ const simonGame = (function() {
     game.round = 1;
   }
 
+  /* Randomly adds a new color to sequence */
   function addStep() {
-    console.log('addStep');
     const colors = ['blue', 'red', 'yellow', 'green'];
     game.sequence.push(colors[Math.floor(Math.random()*4)]);
   }
 
+  /* Formats + sets current round on UI */
   function formatRound() {
     if(game.round < 10) {
-      $('#score').text('0' + game.round);
+      $('#round').text('0' + game.round);
     } else {
-      $('#score').text(game.round);
+      $('#round').text(game.round);
     }
   }
 
   function playersTurn() {
     let counter = 0;
-    $('.section').removeClass('animate-section').addClass('active');
+    $('.section')
+      .removeClass('animate-section') // removes animation class played during playSequence
+      .addClass('active'); // adds active class so section is clickable + animated
     $('.section').on('click', function() {
       let move = $(this).attr('id');
       // ERROR CHECKING
       if(game.sequence[counter] !== move) {
-        console.log(counter);
-        console.log(move);
-        console.log(game.sequence);
-        $('.section').off();
+        $('.section').off(); // so player can't make repeated errors
         playError();
         if(game.strictMode) {
           setTimeout(function() {
@@ -66,13 +74,17 @@ const simonGame = (function() {
           counter = 0;
         }
       } else {
-        counter++; // correct move
+        // correct move, increase counter
+        counter++;
       }
+
       // GAME CHECKING
       if(counter === MAXROUND) {
+        // player won the game, display win screen
         $('.modal-backdrop').show();
         counter = 0;
       } else if(counter === game.sequence.length) {
+        // player sucessfully did a correct round
         $('.section').off();
         game.round++;
         formatRound();
@@ -85,14 +97,15 @@ const simonGame = (function() {
   function playSequence() {
     // player cannot make a move while sequence is playing
     $('.section').removeClass('active');
+
     let counter = 0;
     let intervals = setInterval(function() {
       if(!game.start) { // if player suddenly turns off start/power
         clearInterval(intervals);
-      } else if(counter === game.sequence.length) {
+      } else if(counter === game.sequence.length) { // sequence is done playing
         clearInterval(intervals);
         playersTurn();
-      } else {
+      } else { // continue to play sequence
         playCurrent(game.sequence[counter]);
         counter++;
       }
@@ -175,12 +188,12 @@ $(document).ready(function() {
       simonGame.togglePower(false); // turn off
       $('.switch').removeClass('move-switch-right').addClass('move-switch-left');
       $('.red, .yellow').removeClass('red--active yellow--active').prop('disabled', true);
-      $('#score').text('');
+      $('#round').text('');
     } else {
       simonGame.togglePower(true); // turn on
       $('.switch').removeClass('move-switch-left').addClass('move-switch-right');
       $('.red, .yellow').prop('disabled', false);
-      $('#score').text('--');
+      $('#round').text('--');
     }
   });
 
@@ -200,7 +213,7 @@ $(document).ready(function() {
     if($('.red').hasClass('red--active')) {
       simonGame.toggleStart(false); // turn off
       $('.red').removeClass('red--active');
-      $('#score').text('--');
+      $('#round').text('--');
     } else {
       simonGame.toggleStart(true); // turn on
       $('.red').addClass('red--active');
