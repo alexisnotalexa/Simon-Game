@@ -65,15 +65,19 @@ html {
   border-bottom-right-radius: 100%;
 }
 
-#green:active { background: #17bd5d; }
-#red:active { background: #e26464; }
-#yellow:active { background: #ffbf00; }
-#blue:active { background: #69b8e8; }
-
 #score {
   color: lightgray;
   font-size: 3rem;
 }
+
+.active:active {
+  animation: .3s animate;
+}
+
+/*#green:active { background: #17bd5d; }
+#red:active { background: #e26464; }
+#yellow:active { background: #ffbf00; }
+#blue:active { background: #69b8e8; }*/
 
 .animate {
   animation: .5s animate;

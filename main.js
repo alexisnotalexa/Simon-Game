@@ -20,7 +20,6 @@ const simonGame = (function() {
     addStep();
     addStep();
     addStep();
-    addStep();
     playSequence();
   }
 
@@ -34,12 +33,25 @@ const simonGame = (function() {
     game.sequence.push(colors[Math.floor(Math.random()*4)]);
   }
 
+  function playersTurn() {
+    console.log('playersTurn');
+    let counter = 0;
+    $('.section').removeClass('animate').addClass('active');
+    $('.section').on('click', function() {
+      console.log($(this).attr('id'));
+      console.log(counter);
+      counter++;
+    });
+  }
+
   function playSequence() {
-    console.log(game.sequence);
+    // player cannot make a move while sequence is playing
+    $('.section').removeClass('active');
     let counter = 0;
     let intervals = setInterval(function() {
       if(counter === game.sequence.length) {
         clearInterval(intervals);
+        playersTurn();
       } else {
         playCurrent(game.sequence[counter]);
         counter++;
@@ -73,44 +85,6 @@ const simonGame = (function() {
           break;
       }
     }, 100);
-    // switch(color) {
-    //   case 'blue':
-    //     sound.blue.load();
-    //     sound.blue.play();
-    //     $('#blue').removeClass('animate');
-    //     setTimeout(function() {
-    //       $('#blue').addClass('animate');
-    //     }, 100);
-    //     // $('#blue').removeClass('animate').addClass('animate');
-    //     break;
-    //   case 'red':
-    //     sound.red.load();
-    //     sound.red.play();
-    //     $('#red').removeClass('animate');
-    //     setTimeout(function() {
-    //       $('#red').addClass('animate');
-    //     }, 100);
-    //     // $('#red').removeClass('animate').addClass('animate');
-    //     break;
-    //   case 'yellow':
-    //     sound.yellow.load();
-    //     sound.yellow.play();
-    //     $('#yellow').removeClass('animate');
-    //     setTimeout(function() {
-    //       $('#yellow').addClass('animate');
-    //     }, 100);
-    //     // $('#yellow').removeClass('animate').addClass('animate');
-    //     break;
-    //   case 'green':
-    //     sound.green.load();
-    //     sound.green.play();
-    //     $('#green').removeClass('animate');
-    //     setTimeout(function() {
-    //       $('#green').addClass('animate');
-    //     }, 100);
-    //     // $('#green').removeClass('animate').addClass('animate');
-    //     break;
-    // }
   }
 
   function togglePower(power) {
