@@ -41,15 +41,23 @@ const simonGame = (function() {
       console.log($(this).attr('id'));
       console.log(counter);
       counter++;
+      if(counter === game.sequence.length) {
+        $('.section').off();
+        addStep();
+        playSequence();
+      }
     });
   }
 
   function playSequence() {
+    console.log(game.sequence);
     // player cannot make a move while sequence is playing
     $('.section').removeClass('active');
     let counter = 0;
     let intervals = setInterval(function() {
-      if(counter === game.sequence.length) {
+      if(!game.start) { // if player suddenly turns off start
+        clearInterval(intervals);
+      } else if(counter === game.sequence.length) {
         clearInterval(intervals);
         playersTurn();
       } else {
