@@ -1,5 +1,5 @@
 const simonGame = (function() {
-  const MAXROUND = 5, GAMESPEED = 1000;
+  const MAXROUND = 3, GAMESPEED = 1000;
   const sound = {
     blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
     red: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
@@ -66,7 +66,7 @@ const simonGame = (function() {
 
       // GAME CHECKING
       if(counter === MAXROUND) {
-        console.log('you win');
+        $('.modal-backdrop').show();
       } else if(counter === game.sequence.length) {
         $('.section').off();
         game.round++;
@@ -201,5 +201,10 @@ $(document).ready(function() {
       simonGame.toggleStart(true); // turn on
       $('.red').addClass('red--active');
     }
+  });
+
+  $('#restart').on('click', function() {
+    $('.modal-backdrop').hide();
+    simonGame.init();
   });
 });
