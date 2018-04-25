@@ -74,19 +74,25 @@ html {
   animation: .3s animate;
 }
 
-/*#green:active { background: #17bd5d; }
-#red:active { background: #e26464; }
-#yellow:active { background: #ffbf00; }
-#blue:active { background: #69b8e8; }*/
-
-.animate {
+.animate-section {
   animation: .5s animate;
+}
+
+.animate-error {
+  animation: .5s error;
 }
 
 @keyframes animate {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
+}
+
+@keyframes error {
+  25% { transform: translateX(-2%); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(2%); }
+  100% { transform: translateX(0); }
 }
 
 /* --- CONTROLS --- */

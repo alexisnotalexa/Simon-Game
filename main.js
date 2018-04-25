@@ -4,7 +4,8 @@ const simonGame = (function() {
     blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
     red: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
     yellow: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
-    green: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
+    green: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'),
+    error: new Audio('http://ia601500.us.archive.org/4/items/simo_game_audio/error.mp3')
   };
   const game = {
     start: false,
@@ -36,11 +37,16 @@ const simonGame = (function() {
   function playersTurn() {
     console.log('playersTurn');
     let counter = 0;
-    $('.section').removeClass('animate').addClass('active');
+    $('.section').removeClass('animate-section').addClass('active');
     $('.section').on('click', function() {
-      console.log($(this).attr('id'));
-      console.log(counter);
+      let move = $(this).attr('id');
+      if(game.sequence[counter] !== move) {
+        playError();
+      }
       counter++;
+      console.log(move);
+      console.log(counter);
+
       if(counter === game.sequence.length) {
         $('.section').off();
         addStep();
@@ -55,7 +61,7 @@ const simonGame = (function() {
     $('.section').removeClass('active');
     let counter = 0;
     let intervals = setInterval(function() {
-      if(!game.start) { // if player suddenly turns off start
+      if(!game.start) { // if player suddenly turns off start/power
         clearInterval(intervals);
       } else if(counter === game.sequence.length) {
         clearInterval(intervals);
@@ -67,29 +73,38 @@ const simonGame = (function() {
     }, GAMESPEED);
   }
 
+  function playError() {
+    $('.game').removeClass('animate-error');
+    setTimeout(function () {
+      sound.error.load();
+      sound.error.play();
+      $('.game').addClass('animate-error');
+    }, 100);
+  }
+
   function playCurrent(color) {
-    $('.section').removeClass('animate');
+    $('.section').removeClass('animate-section');
     setTimeout(function() {
       switch(color) {
         case 'blue':
           sound.blue.load();
           sound.blue.play();
-          $('#blue').addClass('animate');
+          $('#blue').addClass('animate-section');
           break;
         case 'red':
           sound.red.load();
           sound.red.play();
-          $('#red').addClass('animate');
+          $('#red').addClass('animate-section');
           break;
         case 'yellow':
           sound.yellow.load();
           sound.yellow.play();
-          $('#yellow').addClass('animate');
+          $('#yellow').addClass('animate-section');
           break;
         case 'green':
           sound.green.load();
           sound.green.play();
-          $('#green').addClass('animate');
+          $('#green').addClass('animate-section');
           break;
       }
     }, 100);
